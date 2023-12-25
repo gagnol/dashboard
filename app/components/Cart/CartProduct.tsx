@@ -65,6 +65,7 @@ const CartProduct = ({ item }:any) => {
                       topDeal: "",
                       bestSeller: "",
                       colors: [""],
+                      countryData:[""],
                       discountPrice:item.discountPrice
                     })
                   )
@@ -99,6 +100,7 @@ const CartProduct = ({ item }:any) => {
                       topDeal: "",
                       bestSeller: "",
                       colors: [""],
+                      countryData:[""],
                       discountPrice:item.discountPrice
                     })
                   )

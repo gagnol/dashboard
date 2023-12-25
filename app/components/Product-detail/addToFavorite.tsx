@@ -36,8 +36,9 @@ const AddToFavorite: React.FC<AddToFavoriteProps> = ({product}) => {
                         discount: 0,
                         topDeal: "",
                         bestSeller: "",
-                        colors: [""]
-                   
+                        colors: [""],
+                        discountPrice:product.discountPrice,
+                        countryData:[ "" ]
                       }),
                       toast.success('Product add to your wishlist', { duration: 4000, position: "top-center", })
                     )
