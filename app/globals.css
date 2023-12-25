@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -17,11 +17,131 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply bg-base-300
+}
+
+
+
+/* Footer */
+.footer {
+  @apply flex-col w-full gap-20 bg-[#ddd];
+}
+
+.footer_back {
+  @apply bg-[#37475a] text-white text-center pt-4 pb-4 hover:bg-[#485769] cursor-pointer;
+}
+
+.footer_middle {
+  @apply bg-[#232f3e] flex flex-wrap pt-8 pb-8 w-full justify-center 
+}
+
+.footer_bottom {
+  @apply bg-[#131a22] flex flex-wrap pt-8 pb-10 px-8 w-full gap-2
+}
+
+.footer_ul {
+  @apply flex flex-col align-top text-[#ddd]
+}
+
+.footer_logo {
+  @apply flex text-[#ddd] gap-1 text-[13px] p-2 border-solid border-[1px] border-[#999] rounded
+}
+
+.footer_flag {
+  @apply inline-block mr-2 w-5 h-4
+}
+
+.footer_copyright {
+  @apply flex-col w-full text-sm font-normal;
+}
+
+.footer_column {
+  @apply flex-1 flex flex-col gap-3 text-sm min-w-max;
+}
+
+/* Card */
+
+.card_container {
+  @apply grow mb-[10px] h-auto relative py-0 px-5 bg-neutral ;
+}
+
+.card_headline {
+  @apply text-xl  pl-[17px] pt-2 font-semibold leading-normal;
+}
+
+/* Forms pages */
+.a_page {
+  @apply flex flex-col py-5 items-center h-full;
+}
+
+.a_logo {
+  @apply object-contain w-[100px] mx-auto;
+}
+
+.a_container {
+  @apply w-[350px] h-fit flex-col rounded-[5px] bg-white my-5
+   border-[#666] border-[1px] px-[26px] py-[20px];
+}
+
+.a_input {
+  @apply bg-[#EAEDED] w-[98%] h-[31px] px-[7px] py-[3px] mb-2
+   border-[#949494] border-[1px] rounded-[3px] font-extralight;
+}
+
+.a_error {
+  @apply text-[#c40000] text-[12px] text-left mb-0;
+}
+
+.a_signBtn {
+  @apply bg-[#f0c14b] border-[#a88734] border-[1px] w-full h-[30px] 
+  mt-[45px] mb-[5px] hover:opacity-75 cursor-pointer;
+}
+
+.a_label {
+  @apply text-[12px] pt-[5px];
+}
+
+.a_label2 {
+  @apply block text-[#0066c0] text-[14px] mr-[21px] ml-[10px];
+}
+
+.a_regbtn {
+  @apply rounded-sm w-full h-[30px] border-[1px] border-[#666] mt-[10px] 
+  hover:bg-[#999] cursor-pointer;
+}
+/* signin tooltip */
+.a_tooltip {
+  @apply absolute w-[439px] h-[300px] rounded-sm hidden  bg-base-300 border-[1px]
+  text-[#0F1111] top-[70px] right-11
+  border-[#777] z-[1] ;
+}
+.a_tooltip-header{
+     @apply flex m-4 p-3 bg-[#EAEDED] rounded-lg max-w-[100%] h-[69px] w-[400px] ;
+  }
+
+.a-tooltip-user {
+  @apply flex items-center p-0 ;
+  }
+.a_line {
+  @apply flex ml-[180px] mt-[15px]  ;
+
+}
+
+.a_list_left {
+  @apply flex-1 flex flex-row min-w-[50%] relative mx-4 my-0 overflow-x-hidden
+ }
+
+.nav_text {
+  @apply block text-[13px] text-neutral-200 font-normal py-1 hover:text-[#c45500] 
+  hover:underline cursor-pointer
+}
+.a_after{
+  @apply bg-white w-3 h-3 absolute z-50 rotate-45 content-none ml-5
+ 
+}
+.colorPiked{
+@apply w-[33px] h-[33px] rounded-md border-2 border-[#c45500]
+}
+.colorBox{
+  @apply w-[33px] h-[33px] rounded-md
 }
