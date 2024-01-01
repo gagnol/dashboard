@@ -35,7 +35,7 @@ const handler = NextAuth({
 
         if (!passwordMatch) throw new Error("Invalid credentials");
 
-        console.log(userFound);
+      
 
         return Promise.resolve(userFound); // Devuelve la promesa
       },
@@ -54,9 +54,13 @@ const handler = NextAuth({
     },
     async session({ session, token }: { session: any; token: any }) {
       session.user = token.user;
+  
       return session;
+      
     },
+    
   },
 });
+
 
 export { handler as GET, handler as POST }

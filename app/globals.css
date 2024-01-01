@@ -71,7 +71,7 @@ body {
 
 /* Forms pages */
 .a_page {
-  @apply flex flex-col py-5 items-center h-full;
+  @apply flex flex-col py-5 items-center h-full ;
 }
 
 .a_logo {
@@ -79,7 +79,7 @@ body {
 }
 
 .a_container {
-  @apply w-[350px] h-fit flex-col rounded-[5px] bg-white my-5
+  @apply w-[350px] h-fit flex-col rounded-[5px] bg-neutral text-neutral-300 my-5
    border-[#666] border-[1px] px-[26px] py-[20px];
 }
 

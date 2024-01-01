@@ -42,9 +42,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
         userId: order.email,
       },
       payment_method_types: ["card"],
-      shipping_address_collection: {
-        allowed_countries: ["AR", "AU"],
-      },
+    
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/cart`,
@@ -56,18 +54,48 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
   }
 }
 
-
-
 export const createOrder = async (order: CreateOrderParams) => {
   try {
     await dbConnect();
 
-    const newOrder = await Order.create({
-      ...order,
+    // Verifica y actualiza el stock para cada producto en la orden
+    for (const productId of order.productId) {
+      const product = await Product.findById(productId);
 
-    });
+      if (!product) {
+        throw new Error(`Producto con ID ${productId} no encontrado`);
+      }
+
+      // Asumiendo que en tu tipo de datos, la cantidad también está directamente en la orden
+      if (product.countInStock < Number(order.quantity)) {
+        throw new Error(`Cantidad insuficiente en stock para el producto con ID ${productId}`);
+      }
+
+      const newCountInStock = product.countInStock - Number(order.quantity);
+
+      // Actualiza el campo countInStock en la base de datos
+      await Product.findByIdAndUpdate(productId, { countInStock: newCountInStock });
+    }
+
+    // Crea la nueva orden
+    const newOrder = await Order.create(order);
 
     return JSON.parse(JSON.stringify(newOrder));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+//GET YOUR LAST ORDER
+
+export const getLastOrder = async () => {
+  try {
+    await dbConnect();
+
+    const yourOrder = await Order.find().sort({ createdAt: 'desc' }).limit(1);
+
+    return JSON.parse(JSON.stringify(yourOrder));
   } catch (error) {
     console.log(error);
   }

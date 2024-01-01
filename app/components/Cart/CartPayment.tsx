@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { checkoutOrder } from '@/lib/order-actions';
+import { checkoutOrder, createOrder } from '@/lib/order-actions';
 
 interface CartItem {
   discountPrice: number;
@@ -50,14 +50,14 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 const { data: session } = useSession();
-
+console.log(session?.user)
 
 const onCheckout = async () => {
   const order  = {
     quantity:productData.map((item:any) => item.quantity),
     productId:productData.map((item:any) => item._id),
     productImage:productData.map((item:any) => item.image),
-    productName:productData.map((item:any) => item.name),
+    productName:productData.map((item:any) => item.name.substring(0,10)),
     subTotal,
     shipping,
     importFees,
@@ -67,6 +67,7 @@ const onCheckout = async () => {
   }
 
   await checkoutOrder(order);
+  await createOrder(order)
 }
 
   return (

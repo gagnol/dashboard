@@ -30,9 +30,9 @@ const taskSchema = new mongoose.Schema(
       trim: true,
       default: "Pending answer"
     },
-    likes:[likesSchema]
+    likes: [likesSchema]
   },
-  {timestamps:true}
+  { timestamps: true }
 );
 const Task = mongoose.models.Task || mongoose.model('Task', taskSchema);
 export default Task;

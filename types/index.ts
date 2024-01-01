@@ -120,13 +120,18 @@ export type CheckoutOrderParams = {
 }
 
 export type CreateOrderParams = {
-  productImage:string | string[],
-  stripeId: string,
-  productId: string | string[],
-  productName:string | string[],
-  userId: string
-  totalAmount: string
-  createdAt: Date
+     
+      quantity:string[],
+      productId:string[],
+      productImage:string[],
+      productName:string[],
+      subTotal:number,
+      shipping:number,
+      importFees:number,
+      totalAmount:number,
+      email: string,
+      userId: string
+      
 }
 
 export type GetOrdersByEventParams = {

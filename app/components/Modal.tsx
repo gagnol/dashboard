@@ -26,13 +26,13 @@ const Modal = ({ isOpen, title = 'My Modal', onDismiss, children }: any) => {
       onClick={onDismiss}
     >
       <div
-        className='min-w-[400px] max-w-full overflow-x-hidden bg-base-200
+        className='min-w-[400px] max-w-full overflow-x-hidden bg-base-200 border-[1px]
         p-2 flex flex-col relative'
         onClick={(event) => event.stopPropagation()}
       >
         <AiOutlineClose
-          className='absolute right-4 top-3 text-2xl text-secondary-content cursor-pointer'
-          onClick={onDismiss}
+          className='absolute right-4 top-4 text-2xl text-white cursor-pointer'
+          onClick={onDismiss}          
         />
         <div className='w-full h-10 flex items-center mb-1 border'>
           <h1 className='text-xl font-bold pl-5'>{title}</h1>

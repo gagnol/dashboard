@@ -19,6 +19,7 @@ import CountryTaxes from "@/app/components/Product-detail/countryTaxes";
 
 
 
+
 export default async function ProductDetail({ params }: { params: { slug: string } }) {
 
   const slug = params.slug;
@@ -55,7 +56,9 @@ export default async function ProductDetail({ params }: { params: { slug: string
 
       <div className="flex flex-wrap sm:justify-center lg:justify-start mt-10 ml-10">
         <div >
+          
           <ImageGallery product={product} />
+          
           <div className="w-[483px] h-[240px] bg-base-200 mt-5 text-center p-2 " >
             <div className="w-[80%] mx-auto">
               <p><strong>We want you to know</strong></p>
