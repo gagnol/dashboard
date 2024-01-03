@@ -35,6 +35,7 @@ function SigninTool() {
 
 
     const handleSignOutClick: React.MouseEventHandler<HTMLLIElement> = (event) => {
+       
         signOut();
     };
     return (

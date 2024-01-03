@@ -3,28 +3,25 @@ import { FormEvent, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { addUser } from "@/store/nextSlice";
+import { useDispatch } from "react-redux";
 
-function Signup() {
+function Forgot() {
   const [error, setError] = useState();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const formData = new FormData(event.currentTarget);
-      const signupResponse = await axios.post("/api/auth/signup", {
+      const forgotResponse = await axios.post("/api/auth/forgot", {
         email: formData.get("email"),
-        password: formData.get("password"),
-        name: formData.get("name"),
+        
       });
-      console.log(signupResponse);
-      const res = await signIn("credentials", {
-        email: signupResponse.data.email,
-        password: formData.get("password"),
-        redirect: false,
-      });
-
-      if (res?.ok) return router.push("/");
+      
+      dispatch( addUser( forgotResponse.data) )
+       return router.push("/validate");
     } catch (error) {
       console.log(error);
       if (error instanceof AxiosError) {
@@ -38,16 +35,9 @@ function Signup() {
     <div className="justify-center h-[calc(100vh-4rem)] flex items-center">
       <form onSubmit={handleSubmit} className="bg-neutral-950 px-8 py-10 w-3/12">
         {error && <div className="bg-red-500 text-white p-2 mb-2">{error}</div>}
-        <h1 className="text-4xl font-bold mb-7">Signup</h1>
+        <h1 className="text-4xl font-bold mb-7">Password Assistance</h1>
 
-        <label className="text-slate-300">Fullname:</label>
-        <input
-          type="text"
-          placeholder="Fullname"
-          className="bg-zinc-800 px-4 py-2 block mb-2 w-full"
-          name="name"
-        />
-
+       
         <label className="text-slate-300">Email:</label>
         <input
           type="email"
@@ -56,20 +46,13 @@ function Signup() {
           name="email"
         />
 
-        <label className="text-slate-300">Password:</label>
-        <input
-          type="password"
-          placeholder="Password"
-          className="bg-zinc-800 px-4 py-2 block mb-2 w-full"
-          name="password"
-        />
-
+       
         <button className="btn btn-primary btn-outline w-full mt-5">
-          Signup
+          Continue
         </button>
       </form>
     </div>
   );
 }
 
-export default Signup;
+export default Forgot;

@@ -93,12 +93,11 @@ body {
 }
 
 .a_signBtn {
-  @apply bg-[#f0c14b] border-[#a88734] border-[1px] w-full h-[30px] 
-  mt-[45px] mb-[5px] hover:opacity-75 cursor-pointer;
+  @apply btn btn-primary btn-outline w-full;
 }
 
 .a_label {
-  @apply text-[12px] pt-[5px];
+  @apply text-[12px] pt-[15px];
 }
 
 .a_label2 {

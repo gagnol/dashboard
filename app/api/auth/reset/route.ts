@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   try {
     await dbConnect();
 
-    const { name, email, password } = await request.json();
+    const {  email, password } = await request.json();
 
     if (password < 6)
       return NextResponse.json(
@@ -19,35 +19,20 @@ export async function POST(request: Request) {
     const userFound = await User.findOne({ email });
 
     if (userFound)
+    {
+        userFound.password = await User.updateOne({ email: email },
+          { $set: { password: bcrypt.hashSync(password) } });
       return NextResponse.json(
         {
-          message: "Email already exists",
+          message: "password update",
         },
         {
-          status: 409,
+          status: 200,
         }
       );
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    const user = new User({
-      name,
-      email,
-      password: hashedPassword,
-    });
-
-    const savedUser = await user.save();
-    console.log(savedUser);
-
-    return NextResponse.json(
-      {
-        name,
-        email,
-        createdAt: savedUser.createdAt,
-        updatedAt: savedUser.updatedAt,
-      },
-      { status: 201 }
-    );
+    }
+    
+   
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       return NextResponse.json(

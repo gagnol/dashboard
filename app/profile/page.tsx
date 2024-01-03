@@ -1,12 +1,10 @@
 import { getLastOrder } from "@/lib/order-actions"
 import Image from "next/image"
 
-
 const ProfilePage = async () => {
 
   const getNewOrder = await getLastOrder()
   const newOrder = await JSON.parse(JSON.stringify(getNewOrder));
-
 
   return (
     <>
@@ -53,10 +51,8 @@ const ProfilePage = async () => {
             ))}
           </div>
         </div>
-
       </div>
     </>
   )
 }
-
 export default ProfilePage
