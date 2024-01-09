@@ -1,22 +1,40 @@
 'use server'
 import { revalidatePath } from 'next/cache'
 import ProductModel from './product-model'
-import TaskModel from './task-model'
 import dbConnect from './db-connect'
 import { z } from 'zod'
 
 export async function createProduct(prevState: any, formData: FormData) {
   const schema = z.object({
     name: z.string().min(3),
-    image: z.string().min(1),
+    image: z.string(),
     price: z.number().min(1),
     rating: z.number().min(1).max(5),
+    video: z.string(),
+    slug: z.string().min(1).max(1000),
+    category: z.string().min(1),
+    subcategory: z.string().min(1),
+    brand: z.string().min(1).max(100),
+    countInStock: z.number().min(1),
+    description: z.string().min(1).max(1000),
+    discount: z.number().min(1).max(99),
+    
   })
   const parse = schema.safeParse({
     name: formData.get('name'),
     image: formData.get('image'),
     price: Number(formData.get('price')),
-    rating: Math.ceil(Math.random() * 5),
+    rating: Number(formData.get('rating')),
+    video: formData.get('video'),
+    slug: formData.get('slug'),
+    category: formData.get('category'),
+    subcategory: formData.get('subcategory'),
+    brand: formData.get('brand'),
+    countInStock: Number(formData.get('countInStock')),
+    description: formData.get('description'),
+    discount: Number(formData.get('discount')),
+    
+
   })
   if (!parse.success) {
     console.log(parse.error)
@@ -54,6 +72,7 @@ export async function deleteProduct(formData: FormData) {
     return { message: 'Failed to delete product' }
   }
 }
+
 
 
 

@@ -8,26 +8,18 @@ import { signOut, useSession } from "next-auth/react";
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/navigation'
 
-
-
-interface User {
-    _id?:string;
-    name?: string;
-    email?: string;
-    image?: string | null;
-}
-
 function SigninTool() {
     const { data: session } = useSession();
+
+
     const dispatch = useDispatch();
     const router = useRouter();
     useEffect(() => {
         if (session) {
             dispatch(
                 addUser({
-                    name: session?.user?.name,
-                    email: session?.user?.email,
-                    image: session?.user?.image,
+                    ...session
+
                 })
             );
         }
@@ -35,8 +27,9 @@ function SigninTool() {
 
 
     const handleSignOutClick: React.MouseEventHandler<HTMLLIElement> = (event) => {
-       
-        signOut();
+
+        removeUser()
+        signOut()
     };
     return (
         <>
@@ -67,10 +60,16 @@ function SigninTool() {
                             </div>
                             <div className='flex justify-between z-30 absolute '>
                                 <div className='a_list_left'>
+                                    {session?.user?.email === "admin@example.com"}
                                     <ul className='m-0 p-0'>
                                         <h4 className='text-[16px] font-bold pb-2 text-white'>Your List</h4>
                                         <li className="nav_text">Create a List</li>
                                         <li className="nav_text">Find a List </li>
+                                        <Link href="/main">
+                                            {session?.user?.email === "admin@example.com" ?
+                                                (<li className="nav_text font-bold">Dashboard</li>) : (<></>)
+                                            }
+                                        </Link>
                                     </ul>
                                 </div>
                                 <div className='border-l-[2px] border-l-[#fff] '></div>

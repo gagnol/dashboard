@@ -21,7 +21,7 @@ export default function DeleteForm({
     >
       <input type="hidden" name="_id" value={_id} />
       <input type="hidden" name="name" value={name} />
-      <button type="submit" disabled={pending} className="btn btn-ghost">
+      <button type="submit" disabled={pending} className="btn btn-error btn-outline">
         Delete
       </button>
     </form>

@@ -1,15 +1,26 @@
 import Image from 'next/image'
 import { Toaster } from 'react-hot-toast'
-import CreateForm from '../components/create-form'
+import CreateForm from '../../components/Admin-navigation/create-form'
 import dbConnect from '@/lib/db-connect'
 import ProductModel, { Product } from '@/lib/product-model'
-import Rating from '../components/rating'
-import DeleteForm from '../components/delete-form'
+import Rating from '../../components/rating'
+import DeleteForm from '../../components/Admin-navigation/delete-form'
 import Link from 'next/link'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 
 export default async function Dashboard({searchParams}:
   {searchParams:{[key:string]:string |string }}) {
+  
+    const session = await getServerSession();
+
+    if( session?.user?.email !== "admin@example.com")    
+    {
+      redirect("/")
+    }
+
+  
   const query=searchParams.query||'';
   await dbConnect()
 
@@ -53,7 +64,7 @@ export default async function Dashboard({searchParams}:
      Total products :  {totalProducts}
       <table className="table text-center">
         <thead>
-          <tr >
+          <tr className='bg-base-200'>
             <th>Image</th>
             <th>Name</th>
             <th>Price</th>

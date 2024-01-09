@@ -13,12 +13,8 @@ import ProductModel from "@/lib/product-model";
 import TaskModel from "@/lib/task-model";
 import Image from "next/image";
 import { FaLock } from "react-icons/fa";
-import { SlLocationPin } from "react-icons/sl";
 import ColorPicker from "@/app/components/Product-detail/colorPicker";
 import CountryTaxes from "@/app/components/Product-detail/countryTaxes";
-
-
-
 
 export default async function ProductDetail({ params }: { params: { slug: string } }) {
 
@@ -34,11 +30,11 @@ export default async function ProductDetail({ params }: { params: { slug: string
 
   const discountPrice = (product.price - (product.price * (product.discount / 100)))
 
-  const videoCounter = product.video.length;
-  const imageCounter = product.image.length;
-  const countAnswer = questionProducts.length;
-  const countReviews = product.reviews.length
-  
+  const videoCounter = product?.video?.length || 0;
+  const imageCounter = product?.image?.length || 0;
+  const countAnswer = questionProducts?.length || 0;
+  const countReviews = product?.reviews?.length || 0
+
   //CUSTOMER REVIEWS
 
   const reviewsMaping = product.reviews.map((item: any) => {
@@ -53,12 +49,9 @@ export default async function ProductDetail({ params }: { params: { slug: string
 
   return (
     <Loading >
-
       <div className="flex flex-wrap sm:justify-center lg:justify-start mt-10 ml-10">
         <div >
-          
           <ImageGallery product={product} />
-          
           <div className="w-[483px] h-[240px] bg-base-200 mt-5 text-center p-2 " >
             <div className="w-[80%] mx-auto">
               <p><strong>We want you to know</strong></p>
@@ -135,8 +128,8 @@ export default async function ProductDetail({ params }: { params: { slug: string
             <h5 className="text-[14px] font-normal">&nbsp;{product.subcategory}</h5>
           </div>
           {/* COLOR SELECTION */}
-      <ColorPicker product={product}/>
-          
+          <ColorPicker product={product} />
+
           <div className="mt-5">
             <h4 className="text-[16px] font-bold mt-2" >About this item</h4>
             <h5 className="text-[14px] font-normal text-neutral-content" >
@@ -165,14 +158,14 @@ export default async function ProductDetail({ params }: { params: { slug: string
               </h4>
             </div>
           }
-          
-        <CountryTaxes discountPrice={discountPrice}/>
+
+          <CountryTaxes discountPrice={discountPrice} />
 
           {product.countInStock > 0 ? <>
             <h4 className="text-[18px] text-[#007600] font-normal my-2">
               In stock
             </h4><br />
-            <AddToCart product={product} discountPrice={discountPrice}/>
+            <AddToCart product={product} discountPrice={discountPrice} />
             <button className="w-full bg-[#FA8900] p-2 rounded-[25px] text-neutral font-bold
             cursor-pointer mb-2 hover:opacity-75">
               Buy Now

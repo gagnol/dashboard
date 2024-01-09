@@ -15,6 +15,8 @@ export async function POST(request: Request) {
   const userData = await User.findOne({ email: email })
   const ramdom = ramdomstring.generate(7);
   userData.token = await User.updateOne({ email: email }, { $set: { token: ramdom } });
+  userData.tokenExpiration = await User.updateOne({ email: email }, 
+    { $set: {tokenExpiration:Date.now()+2*60*1000 } });
 
   if (!userData) {
     return NextResponse.json(
@@ -32,7 +34,7 @@ export async function POST(request: Request) {
       to: { email },
       from: {
         email: FROM_EMAIL,
-        name: "Your Name", // Add your name or leave it as an empty string
+        name: "Amazon", // Add your name or leave it as an empty string
       },
       subject: 'Amazon password assistance',
       html: `
@@ -41,7 +43,8 @@ export async function POST(request: Request) {
         </td>
         <p>To authenticate, please use the following One Time Password (OTP):</p>
         <h1><strong>${ramdom}</strong></h1>
-        <p>Don't share this OTP with anyone. Our customer service team will never ask you for your password, OTP, credit card, or banking info.</p>
+        <p>Don't share this OTP with anyone.
+         Our customer service team will never ask you for your password, OTP, credit card, or banking info.</p>
         <p>We hope to see you again soon.</p>
         <p><strong>Email:</strong>${email}</p>
       `,

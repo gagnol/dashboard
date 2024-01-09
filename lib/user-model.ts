@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     isAdmin: { type: Boolean, required: true, default: false },
     image: {type: String, required: false, default:"https://res.cloudinary.com/dps8xubee/image/upload/v1684105438/avatar/pmbgserj2nobgqn2auwr.png"},
-    token:{ type: String, required: true,default:'AAAEEE9' }
+    token:{ type: String, required: true,default:'AAAEEE9' },
+    tokenExpiration:{type:Date,required:false}
 },
   {
     timestamps: true,

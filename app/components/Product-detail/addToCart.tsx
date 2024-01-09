@@ -1,8 +1,10 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addCart } from '@/store/nextSlice';
 import toast from 'react-hot-toast';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 
 interface AddToCartProps {
@@ -12,7 +14,6 @@ interface AddToCartProps {
 const AddCart: React.FC<AddToCartProps> = ({ product,discountPrice }) => {
 
   const { countryData } = useSelector((state: any) => state.next);
-  
   
   const dispatch = useDispatch();
   return (

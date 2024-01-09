@@ -1,7 +1,7 @@
 import { getLastOrder } from "@/lib/order-actions"
 import Image from "next/image"
 
-const ProfilePage = async () => {
+const SuccessPage = async () => {
 
   const getNewOrder = await getLastOrder()
   const newOrder = await JSON.parse(JSON.stringify(getNewOrder));
@@ -55,4 +55,4 @@ const ProfilePage = async () => {
     </>
   )
 }
-export default ProfilePage
+export default SuccessPage

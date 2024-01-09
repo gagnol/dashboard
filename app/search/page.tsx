@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { Toaster } from 'react-hot-toast'
-import CreateForm from '../components/create-form'
+import CreateForm from '../components/Admin-navigation/create-form'
 import dbConnect from '@/lib/db-connect'
 import ProductModel, { Product } from '@/lib/product-model'
 import Rating from '../components/rating'
-import DeleteForm from '../components/delete-form'
+import DeleteForm from '../components/Admin-navigation/delete-form'
 import Link from 'next/link'
 import SearchInput from '../components/Header-navigation/SearchInput'
 

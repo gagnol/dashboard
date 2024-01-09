@@ -8,8 +8,13 @@ export async function POST(request: Request) {
   try {
     await dbConnect();
 
-    const {  email, password } = await request.json();
-
+    const { email, password, cpassword } = await request.json();
+    if (password !== cpassword) {
+      return NextResponse.json(
+        { message: "Password must match" },
+        { status: 400 }
+      );
+    }
     if (password < 6)
       return NextResponse.json(
         { message: "Password must be at least 6 characters" },
@@ -18,10 +23,9 @@ export async function POST(request: Request) {
 
     const userFound = await User.findOne({ email });
 
-    if (userFound)
-    {
-        userFound.password = await User.updateOne({ email: email },
-          { $set: { password: bcrypt.hashSync(password) } });
+    if (userFound) {
+      userFound.password = await User.updateOne({ email: email },
+        { $set: { password: bcrypt.hashSync(password) } });
       return NextResponse.json(
         {
           message: "password update",
@@ -31,8 +35,8 @@ export async function POST(request: Request) {
         }
       );
     }
-    
-   
+
+
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       return NextResponse.json(

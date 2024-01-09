@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { checkoutOrder, createOrder } from '@/lib/order-actions';
+import { useEffect } from "react";
 
 interface CartItem {
   discountPrice: number;
@@ -50,7 +51,14 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 const { data: session } = useSession();
-console.log(session?.user)
+
+useEffect(() => {
+  if (!session) {
+    router.push('/signin');
+  }
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
 const onCheckout = async () => {
   const order  = {

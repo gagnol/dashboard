@@ -329,4 +329,10 @@ export const countryLocation =[
   shipping: 384.69,
   importFees:158.67,
   },
+  {
+  id:5,
+  country:"USA",
+  shipping: 0,
+  importFees:0
+  }
   ]

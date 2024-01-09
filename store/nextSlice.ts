@@ -37,6 +37,7 @@ interface userInfo {
   name:string,
   email: string,
   image:string,
+  isAdmin:boolean
   }
 
 interface State {
@@ -44,7 +45,7 @@ interface State {
   favoriteData: Product[];
   allProducts: any[]; 
   userInfo: userInfo[]|null ; 
-  countryData: countryData[]|undefined; 
+  countryData:any[]| undefined; 
 }
 
 const initialState: State = {
@@ -52,7 +53,7 @@ const initialState: State = {
   favoriteData: [],
   allProducts: [],
   userInfo: null,
-  countryData: [],
+  countryData:[5,"USA",0,0],
 };
 
 export const nextSlice = createSlice({

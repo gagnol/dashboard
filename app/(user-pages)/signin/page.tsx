@@ -84,7 +84,7 @@ export default function Signin() {
                     {errors.password?.type === 'maxLength' && <p className='a_error'> Passwords must be up to 20 characters.</p>}
 
                     <br /><br />
-                    <button className='a_signBtn' type='submit' >Continue</button>
+                    <button className='btn btn-outline btn-primary w-full' type='submit' >Continue</button>
                 </form>
 
                 <div className='a_label'>By continuing, you agree to Amazon&apos;s
@@ -94,7 +94,7 @@ export default function Signin() {
                 <br />
                 <div className='a_flabel'>
                     <Link href="/forgot" >
-                        <p className='text-[#0066c0] font-semibold mb-2 hover:text-[#c45500] cursor-pointer' >
+                        <p className='text-primary font-semibold mb-2 hover:text-[#c45500] cursor-pointer' >
                         Forgot your password?
                         </p>
                     </Link>
